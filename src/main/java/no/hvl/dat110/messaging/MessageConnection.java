@@ -32,15 +32,16 @@ public class MessageConnection {
 		}
 	}
 
-	public void send(Message message) {
+	public void send(Message message) throws IOException {
 
 		byte[] data;
 		
 		// TODO - START
-		// encapsulate the data contained in the Message and write to the output stream
 		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+		data = message.getData();
+		outStream.writeInt(data.length);
+		outStream.write(data);
+		outStream.flush();
 			
 		// TODO - END
 
