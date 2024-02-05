@@ -47,16 +47,17 @@ public class MessageConnection {
 
 	}
 
-	public Message receive() {
+	public Message receive() throws IOException {
 
 		Message message = null;
 		byte[] data;
 		
 		// TODO - START
-		// read a segment from the input stream and decapsulate data into a Message
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+
+		int length = inStream.readInt();
+		data = new byte[length];
+		inStream.readFully(data);
+		message = new Message(data);
 		
 		// TODO - END
 		
