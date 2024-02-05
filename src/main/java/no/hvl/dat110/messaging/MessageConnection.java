@@ -1,4 +1,4 @@
-package no.hvl.dat110.messaging;
+ package no.hvl.dat110.messaging;
 
 
 import java.io.DataInputStream;
@@ -47,17 +47,25 @@ public class MessageConnection {
 
 	}
 
-	public Message receive() throws IOException {
+	public Message receive() {
 
 		Message message = null;
 		byte[] data;
 		
 		// TODO - START
-
-		int length = inStream.readInt();
-		data = new byte[length];
-		inStream.readFully(data);
-		message = new Message(data);
+		// read a segment from the input stream and decapsulate data into a Message
+		try {
+			int length = inStream.readInt();
+			if(length > 0) {
+				data = new byte[length];
+				inStream.readFully(data);
+				message = new Message(data);
+			}
+		} catch (IOException e) {
+			System.out.println("Feil i innlesing av header!");
+			e.printStackTrace();
+		}
+		
 		
 		// TODO - END
 		

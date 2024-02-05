@@ -35,7 +35,7 @@ public class MessageUtils {
 		Message message = null;
 		
 		// TODO - START
-		int length = (byte) segment[0];
+		int length =  segment[0];
 		byte[] data = new byte[length];
 		
 		for(int i = 1; i<=length; i++) {
