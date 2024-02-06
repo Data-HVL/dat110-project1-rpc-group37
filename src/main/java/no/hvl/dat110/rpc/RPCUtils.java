@@ -1,7 +1,8 @@
 package no.hvl.dat110.rpc;
 
 import java.nio.ByteBuffer;
-import java.util.Arrays;
+import java.nio.charset.StandardCharsets;
+
 import no.hvl.dat110.TODO;
 
 public class RPCUtils {
@@ -14,8 +15,12 @@ public class RPCUtils {
 		
 		// Encapsulate the rpcid and payload in a byte array according to the RPC message syntax / format
 		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+		rpcmsg = new byte[payload.length +1];
+		rpcmsg[0] = rpcid;
+		
+		//kopierer hele payload inn i rpcmsg, hvor 1. index = rpcid
+		System.arraycopy(payload, 0, rpcmsg, 1, payload.length);
+		
 		
 		// TODO - END
 		
@@ -28,10 +33,11 @@ public class RPCUtils {
 		
 		// TODO - START
 		
+		payload = new byte[rpcmsg.length - 1];
 		// Decapsulate the rpcid and payload in a byte array according to the RPC message syntax
 		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+		//henter ut payload fra RPC melding
+		System.arraycopy(rpcmsg, 1, payload, 0, rpcmsg.length - 1);
 		
 		// TODO - END
 		
@@ -46,8 +52,8 @@ public class RPCUtils {
 		
 		// TODO - START 
 		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+		//konverterer str til et byte-array av type UTF-8
+		encoded = str.getBytes(StandardCharsets.UTF_8);
 		
 		// TODO - END
 		
@@ -61,9 +67,7 @@ public class RPCUtils {
 		
 		// TODO - START 
 		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-		
+		decoded = new String(data, StandardCharsets.UTF_8);		
 		// TODO - END
 		
 		return decoded;
@@ -75,8 +79,8 @@ public class RPCUtils {
 		
 		// TODO - START 
 		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+		//returnerer gyldig byte array, med ingen verdi
+		encoded = new byte[0];
 				
 		// TODO - END
 		
@@ -122,8 +126,13 @@ public class RPCUtils {
 		
 		// TODO - START 
 		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+		//Må bruke ByteBuffer her for automatisk konvertering fra int til byte
+		ByteBuffer buffer = ByteBuffer.allocate(4);
+		buffer.putInt(x);
+		
+		//Gjør nå om bufferet til en byte[]
+		encoded = buffer.array();
+		
 		
 		// TODO - END
 		
@@ -137,8 +146,12 @@ public class RPCUtils {
 		
 		// TODO - START 
 		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+		if(data.length != 4) {
+			throw new IllegalArgumentException("Error unmarshallInteger. bytes != 4");
+		}
+		
+		ByteBuffer buffer = ByteBuffer.wrap(data);
+		decoded = buffer.getInt();
 		
 		// TODO - END
 		
