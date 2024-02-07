@@ -25,7 +25,7 @@ public class MessageUtils {
 			segment[i + 1] = data[i];
 		}
 			
-		// TODO - END
+		// TODO -END
 		return segment;
 		
 	}
