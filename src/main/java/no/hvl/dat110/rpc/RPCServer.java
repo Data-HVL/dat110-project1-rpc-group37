@@ -58,14 +58,15 @@ public class RPCServer {
 
 			// - invoke the method and pass the param
 			byte[] returnval = method.invoke(param);
-
+			
 			// - encapsulate return value
 			returnval = RPCUtils.encapsulate(rpcid, returnval);
 
 			// - send back the message containing the RPC reply
-
+			replymsg = new Message(returnval);
+			
 			try {
-				connection.send(new Message(returnval));
+				connection.send(replymsg);
 			} catch (IOException e) {
 				System.out.println("Error: RPCServer --> connection.send(...)");
 				e.printStackTrace();

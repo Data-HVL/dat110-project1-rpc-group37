@@ -18,7 +18,7 @@ public class MessageUtils {
 		
 		// TODO - START
 		data = message.getData();
-		segment = new byte[128]; // se på denne 
+		segment = new byte[SEGMENTSIZE]; // se på denne 
 		segment[0] = (byte) data.length;
 		
 		for (int i = 0; i < data.length; i++) {
